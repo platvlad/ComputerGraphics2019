@@ -1,6 +1,6 @@
 # ComputerGraphics2019
 
-##On Windows
+## On Windows
 
 venv\Scripts\activate.bat
 
