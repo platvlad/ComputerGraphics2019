@@ -45,10 +45,6 @@ def get_vert_faces(path):
     vertex_array = vertices.flatten()
     return vertex_array, face_array
 
-
-
-
-
 class Viewer:
     def __init__(self, path):
         vertex_array, self.face_array = get_vert_faces(path)
@@ -109,30 +105,19 @@ class Viewer:
     def show(self):
         glutMainLoop()
 
-    def update_threshold(self):
-        if self.growing:
-            self.min_threshold += 1e-5
-        else:
-            self.min_threshold -= 1e-5
-        if abs(self.min_threshold) > 1:
-            self.growing = not self.growing
-
     def draw(self):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glBindVertexArray(self.VAO)
         view_location = glGetUniformLocation(self.program, 'view')
         projection_location = glGetUniformLocation(self.program, 'projection')
-        min_threshold_location = glGetUniformLocation(self.program, 'minThreshold')
 
         glUniformMatrix4fv(view_location, 1, GL_FALSE, glm.value_ptr(self.cam_controller.view))
         glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm.value_ptr(self.projection))
-        glUniform1f(min_threshold_location, self.min_threshold)
 
         glDrawElements(GL_TRIANGLES, len(self.face_array), GL_UNSIGNED_INT, None)
 
         glBindVertexArray(0)
         glutSwapBuffers()
-        self.update_threshold()
 
     @staticmethod
     def create_shader(shader_type, shader_file_name):
