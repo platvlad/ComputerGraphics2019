@@ -1,4 +1,4 @@
-PyOpenGL>=3.1.0
+PyOpenGL==3.1.0
 PyWavefront>=1.3.0
 numpy>=1.17.4
-PyGLM>=1.1.2
+PyGLM==1.1.2

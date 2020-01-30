@@ -125,9 +125,11 @@ class Viewer:
         glUseProgram(self.program)
         glEnable(GL_DEPTH_TEST)
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 24, None)
+        vert_size = 3 * self.vertex_array.dtype.itemsize
+        vert_face_size = vert_size + 3 * self.face_array.dtype.itemsize
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vert_face_size, None)
         glEnableVertexAttribArray(0)
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 24, ctypes.c_void_p(12))
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vert_face_size, ctypes.c_void_p(vert_size))
         glEnableVertexAttribArray(1)
 
     @staticmethod
